@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>kwantegy test</title>
+
+    <script src="../dist/kwantegy.js"></script>
+    <script>
+      var tape1 = kwantegy.tape('./nin_closer.mp3'),
+          tape2 = kwantegy.tape('./steve_winwood_higher_love.mp3'),
+          tape1w = kwantegy.tape('./nin_closer.mp3', { stream: false });
+          deck1 = kwantegy.deck(),
+          deck2 = kwantegy.deck();
+          function doLoad() {
+            deck1.load(tape1, function() { console.log('tape1 loaded'); });
+            deck2.load(tape2, function() { console.log('tape2 loaded'); });
+          }
+
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1 class="kwtest">kwantegy test</h1>
+    </header>
+    <article>
+      
+    </article>
+  </body>
+</html>

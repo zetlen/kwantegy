@@ -1,0 +1,23 @@
+{
+  "name": "kwantegy",
+  "version": "0.0.1",
+  "description": "Web Audio that acts like reel to reel tapes",
+  "repository": {
+    "type": "git",
+    "url": "file:///Users/james_zetlen/gits/kwantegy"
+  },
+  "devDependencies": {
+    "uglifyify": "^2.6.0"
+  },
+  "dependencies": {
+    "domready": "^1.0.7",
+    "inherits": "^2.0.1",
+    "lodash.assign": "^2.4.1",
+    "lodash.find": "^2.4.1",
+    "lodash.reduce": "^2.4.1"
+  },
+  "scripts": {
+    "build": "browserify src/index.js --verbose -d --standalone kwantegy -g uglifyify | exorcist dist/kwantegy.js.map | tee dist/kwantegy.js | uglifyjs --compress --mangle --screw-ie8 > dist/kwantegy.min.js",
+    "watch": "watchify src/index.js --verbose --debug --standalone kwantegy -o dist/kwantegy.js"
+  }
+}
