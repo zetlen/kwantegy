@@ -13,6 +13,7 @@
     "domready": "^1.0.7",
     "inherits": "^2.0.1",
     "lodash.assign": "^2.4.1",
+    "lodash.bind": "^2.4.1",
     "lodash.find": "^2.4.1",
     "lodash.reduce": "^2.4.1"
   },
