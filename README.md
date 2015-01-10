@@ -1,3 +1,3 @@
 # kwantegy
 
-skeuomorphism for your brain
+web audio keeping it reel

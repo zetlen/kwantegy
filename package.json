@@ -1,10 +1,10 @@
 {
   "name": "kwantegy",
   "version": "0.0.1",
-  "description": "Web Audio that acts like reel to reel tapes",
+  "description": "web audio keeping it reel",
   "repository": {
     "type": "git",
-    "url": "file:///Users/james_zetlen/gits/kwantegy"
+    "url": "https://github.com/zetlen/kwantegy.git"
   },
   "devDependencies": {
     "uglifyify": "^2.6.0"
