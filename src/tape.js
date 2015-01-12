@@ -3,18 +3,15 @@ var extend = require('lodash.assign');
 var find = require('lodash.find');
 var bind = require('lodash.bind');
 var getContext = require('./utils/get-context');
-var canPlay = require('./utils/can-play');
+var features = require('./utils/detect-features');
 var EventEmitter = require('events').EventEmitter;
 var inherits = require('inherits');
-var tapeManager = require('./tape-manager');
 
 var context = getContext();
 
 function Tape(sources) {
   EventEmitter.apply(this);
   this.sources = sources = typeof sources === "string" ? [sources] : sources;
-  tapeManager.add(this);
-  this.feed = bind(this.feed, this);
 }
 inherits(Tape, EventEmitter);
 extend(Tape.prototype, {
@@ -64,7 +61,7 @@ inherits(BufferedTape, Tape);
 extend(BufferedTape.prototype, {
   load: function(cb) {
     var self = this;
-    var playableUrl = find(this.sources, canPlay);
+    var playableUrl = find(this.sources, features.canPlay);
     var request = new XMLHttpRequest();
     request.open('GET', playableUrl, true);
     request.responseType = 'arraybuffer';
@@ -88,10 +85,34 @@ extend(BufferedTape.prototype, {
   }
 });
 
-module.exports = function(sources, opts) {
-  if (opts && opts.stream === false) {
-    return new BufferedTape(sources);
-  } else {
-    return new StreamingTape(sources);
+function KTape(audioNode) {
+  var processor = this.processor = context.createScriptProcessor(),
+  i = 0;
+  audioNode.connect(processor);
+  processor.onaudioprocess = function(evt) {
+    console.log(evt);
+    if (i++ === 10) processor.onaudioprocess = null;
   }
+  this.node = audioNode;
 }
+
+extend(KTape.prototype, {
+  play: function() {
+    this.node.mediaElement.play();
+  },
+  feed: function() {
+    return this.processor;
+  }
+});
+
+module.exports = function(n) {
+  return new KTape(n);
+}
+
+// module.exports = function(sources, opts) {
+//   if ((opts && opts.stream === false) || ) {
+//     return new BufferedTape(sources);
+//   } else {
+//     return new StreamingTape(sources);
+//   }
+// }

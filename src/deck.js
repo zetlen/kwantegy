@@ -29,6 +29,19 @@ extend(Deck.prototype, {
   }
 });
 
+
+function KDeck() {
+  this.gain = getContext().createGain();
+}
+
+extend(KDeck.prototype, {
+  play: function(ktape) {
+     this.gain.connect(getContext().destination);
+     ktape.feed().connect(this.gain);
+     ktape.play();
+  }
+})
+
 module.exports = function(conf) {
-  return new Deck(conf);
+  return new KDeck(conf);
 }
